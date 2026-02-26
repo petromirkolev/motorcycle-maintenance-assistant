@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MotoCare</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <header class="topbar" data-testid="topbar">
+      <div class="topbar__inner">
+        <div class="brand" data-testid="brand">
+          <div class="brand__mark" aria-hidden="true">MC</div>
+          <div class="brand__text">
+            <div class="brand__name">MotoCare</div>
+            <div class="brand__tagline">
+              Maintenance reminders for your bike.
+            </div>
+          </div>
+        </div>
+
+        <nav class="actions" aria-label="Primary">
+          <button
+            class="btn btn--ghost"
+            type="button"
+            data-testid="btn-refresh">
+            Refresh
+          </button>
+          <button
+            class="btn btn--primary"
+            type="button"
+            data-testid="btn-add-bike">
+            + Add bike
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel" data-testid="bike-select-panel">
+        <div class="panel__header">
+          <h1 class="h1">Dashboard</h1>
+
+          <div class="bike-select">
+            <label class="label" for="bikeSelect">Bike</label>
+            <select id="bikeSelect" class="select" data-testid="bike-select">
+              <option value="">Select a bike…</option>
+              <!-- filled by TS later -->
+            </select>
+          </div>
+
+          <div class="odometer">
+            <div class="label">Odometer</div>
+            <div class="odometer__row">
+              <div class="odometer__value" data-testid="bike-odometer">—</div>
+              <div class="odometer__unit">km</div>
+              <button
+                class="btn btn--ghost btn--sm"
+                type="button"
+                data-testid="btn-update-odometer">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" data-testid="status-grid">
+        <section class="card card--danger" data-testid="col-overdue">
+          <header class="card__header">
+            <h2 class="h2">Overdue</h2>
+            <span class="badge badge--danger" data-testid="count-overdue"
+              >0</span
+            >
+          </header>
+          <ul class="list" data-testid="list-overdue">
+            <li class="list__empty" data-testid="empty-overdue">
+              Nothing overdue.
+            </li>
+          </ul>
+        </section>
+
+        <section class="card card--warn" data-testid="col-dueNow">
+          <header class="card__header">
+            <h2 class="h2">Due now</h2>
+            <span class="badge badge--warn" data-testid="count-dueNow">0</span>
+          </header>
+          <ul class="list" data-testid="list-dueNow">
+            <li class="list__empty" data-testid="empty-dueNow">
+              Nothing due right now.
+            </li>
+          </ul>
+        </section>
+
+        <section class="card card--info" data-testid="col-dueSoon">
+          <header class="card__header">
+            <h2 class="h2">Due soon</h2>
+            <span class="badge badge--info" data-testid="count-dueSoon">0</span>
+          </header>
+          <ul class="list" data-testid="list-dueSoon">
+            <li class="list__empty" data-testid="empty-dueSoon">
+              Nothing coming up.
+            </li>
+          </ul>
+        </section>
+
+        <section class="card card--ok" data-testid="col-ok">
+          <header class="card__header">
+            <h2 class="h2">OK</h2>
+            <span class="badge badge--ok" data-testid="count-ok">0</span>
+          </header>
+          <ul class="list" data-testid="list-ok">
+            <li class="list__empty" data-testid="empty-ok">All good.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer" data-testid="footer">
+      <div class="footer__inner">
+        <span>© <span data-testid="year">2026</span> MotoCare</span>
+      </div>
+    </footer>
+  </body>
+</html>

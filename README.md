@@ -1,2 +1,3 @@
-# motocare
-Motorcycle maintenance &amp; reminders
+# MotoCare
+
+MotoCare is a small, real-life usable motorcycle maintenance reminder app.
