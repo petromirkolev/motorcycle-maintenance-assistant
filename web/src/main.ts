@@ -62,6 +62,5 @@ function wireUI() {
   });
 }
 
-console.log('[MotoCare] main.ts loaded');
 setScreen('login');
 wireUI();
