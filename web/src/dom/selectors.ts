@@ -22,6 +22,7 @@ export const dom = {
   backToGarageBtn: document.querySelector('[data-testid="btn-back-to-garage"]'),
   deleteBikeBtn: document.querySelectorAll('.iconbtn--danger'),
   editBikeBtn: document.querySelectorAll('.iconbtn--edit'),
+  addBikeBtn: document.querySelector('[data-testid="btn-add-bike"]'),
 
   // screens
   loginScreen: document.querySelector('[data-testid="screen-login"]'),

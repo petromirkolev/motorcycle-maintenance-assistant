@@ -43,6 +43,7 @@
           <button
             class="linkbtn"
             type="button"
+            data-action="auth.logout"
             data-testid="btn-logout"
             aria-label="Logout">
             <span class="linkbtn__icon" aria-hidden="true">
@@ -111,12 +112,14 @@
               <button
                 class="btn btn--primary btn--block"
                 type="button"
+                data-action="auth.login"
                 data-testid="btn-login">
                 Login
               </button>
               <button
                 class="btn btn--soft btn--block"
                 type="button"
+                data-action="nav.register"
                 data-testid="btn-register">
                 Register
               </button>
@@ -183,6 +186,7 @@
               <button
                 class="btn btn--primary btn--block"
                 type="button"
+                data-action="auth.register"
                 data-testid="btn-register-submit">
                 Register
               </button>
@@ -190,6 +194,7 @@
               <button
                 class="btn btn--soft btn--block"
                 type="button"
+                data-action="nav.login"
                 data-testid="btn-register-back">
                 Back
               </button>
@@ -214,6 +219,7 @@
           <button
             class="btn btn--primary btn--lg"
             type="button"
+            data-action="nav.bikeAdd"
             data-testid="btn-add-bike">
             <span aria-hidden="true" class="btn__plus">＋</span>
             Add Motorcycle
@@ -234,6 +240,207 @@
         </div>
       </section>
 
+      <!-- SCREEN: ADD BIKE -->
+      <section
+        class="screen is-hidden"
+        id="screen-bike-add"
+        data-testid="screen-bike-add">
+        <div class="crumbs" data-testid="breadcrumbs-add">
+          <button
+            class="crumbs__back"
+            type="button"
+            data-action="nav.garage"
+            data-testid="btn-cancel-add-bike">
+            <span class="crumbs__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <path
+                  d="M15 18 9 12l6-6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+            Back to Garage
+          </button>
+        </div>
+
+        <div class="formPage" data-testid="add-bike-page">
+          <div class="auth__card formCard" data-testid="add-bike-card">
+            <div class="formHeader">
+              <div class="formTitle" data-testid="add-bike-title">
+                Add Motorcycle
+              </div>
+              <div class="formSubtitle" data-testid="add-bike-subtitle">
+                Create a bike to start tracking maintenance.
+              </div>
+            </div>
+
+            <form class="form" data-testid="add-bike-form">
+              <label class="label" for="addBikeName">Name</label>
+              <input
+                class="input"
+                id="addBikeName"
+                type="text"
+                placeholder="e.g. Yamaha"
+                data-testid="add-bike-name" />
+
+              <label class="label" for="addBikeYear">Year</label>
+              <input
+                class="input"
+                id="addBikeYear"
+                type="number"
+                inputmode="numeric"
+                min="1900"
+                max="2100"
+                placeholder="e.g. 2022"
+                data-testid="add-bike-year" />
+
+              <label class="label" for="addBikeModel">Model</label>
+              <input
+                class="input"
+                id="addBikeModel"
+                type="text"
+                placeholder="e.g. Tracer 9 GT"
+                data-testid="add-bike-model" />
+
+              <label class="label" for="addBikeOdo"
+                >Current odometer (km)</label
+              >
+              <input
+                class="input"
+                id="addBikeOdo"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                placeholder="e.g. 24000"
+                data-testid="add-bike-odometer" />
+
+              <div class="formActions">
+                <button
+                  class="btn btn--soft btn--block"
+                  type="button"
+                  data-action="nav.garage"
+                  data-testid="btn-add-bike-cancel">
+                  Cancel
+                </button>
+                <button
+                  class="btn btn--primary btn--block"
+                  type="button"
+                  data-action="bike.add.submit"
+                  data-testid="btn-add-bike-save">
+                  Save Motorcycle
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: EDIT BIKE -->
+      <section
+        class="screen is-hidden"
+        id="screen-bike-edit"
+        data-testid="screen-bike-edit">
+        <div class="crumbs" data-testid="breadcrumbs-edit">
+          <button
+            class="crumbs__back"
+            type="button"
+            data-action="nav.garage"
+            data-testid="btn-cancel-edit-bike">
+            <span class="crumbs__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <path
+                  d="M15 18 9 12l6-6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+            Back to Garage
+          </button>
+        </div>
+
+        <div class="formPage" data-testid="edit-bike-page">
+          <div class="auth__card formCard" data-testid="edit-bike-card">
+            <div class="formHeader">
+              <div class="formTitle" data-testid="edit-bike-title">
+                Edit Motorcycle
+              </div>
+              <div class="formSubtitle" data-testid="edit-bike-subtitle">
+                Update bike details and odometer.
+              </div>
+            </div>
+
+            <!-- hidden id so TS knows what bike is being edited -->
+            <input
+              type="hidden"
+              data-testid="edit-bike-id"
+              id="editBikeId"
+              value="" />
+
+            <form class="form" data-testid="edit-bike-form">
+              <label class="label" for="editBikeName">Name</label>
+              <input
+                class="input"
+                id="editBikeName"
+                type="text"
+                data-testid="edit-bike-name" />
+
+              <label class="label" for="editBikeYear">Year</label>
+              <input
+                class="input"
+                id="editBikeYear"
+                type="number"
+                inputmode="numeric"
+                min="1900"
+                max="2100"
+                data-testid="edit-bike-year" />
+
+              <label class="label" for="editBikeModel">Model</label>
+              <input
+                class="input"
+                id="editBikeModel"
+                type="text"
+                data-testid="edit-bike-model" />
+
+              <label class="label" for="editBikeOdo"
+                >Current odometer (km)</label
+              >
+              <input
+                class="input"
+                id="editBikeOdo"
+                type="number"
+                inputmode="numeric"
+                min="0"
+                data-testid="edit-bike-odometer" />
+
+              <div class="formActions">
+                <button
+                  class="btn btn--soft btn--block"
+                  type="button"
+                  data-action="nav.garage"
+                  data-testid="btn-edit-bike-cancel">
+                  Cancel
+                </button>
+                <button
+                  class="btn btn--primary btn--block"
+                  type="button"
+                  data-action="bike.edit.submit"
+                  data-testid="btn-edit-bike-save">
+                  Save Changes
+                </button>
+              </div>
+
+              <div class="formHint" data-testid="edit-odo-hint">
+                Odometer cannot decrease.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
       <!-- SCREEN: BIKE / MAINTENANCE -->
       <section
         class="screen is-hidden"
@@ -243,6 +450,7 @@
           <button
             class="crumbs__back"
             type="button"
+            data-action="nav.garage"
             data-testid="btn-back-to-garage">
             <span class="crumbs__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
@@ -278,6 +486,7 @@
               <button
                 class="iconbtn"
                 type="button"
+                data-action="bike.edit.open"
                 data-testid="btn-edit-bike"
                 aria-label="Edit bike">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
@@ -297,6 +506,7 @@
               <button
                 class="iconbtn iconbtn--danger"
                 type="button"
+                data-action="bike.delete"
                 data-testid="btn-delete-bike"
                 aria-label="Delete bike">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none">

@@ -601,8 +601,49 @@ body {
   background: rgba(255, 255, 255, 0.95);
   color: rgba(20, 24, 38, 0.92);
 }
+
 .iconbtn--danger {
   color: rgba(255, 61, 90, 0.95);
+}
+
+.formPage {
+  display: grid;
+  place-items: start center;
+  padding: 10px 0 30px;
+}
+
+.formCard {
+  width: min(520px, 100%);
+}
+
+.formHeader {
+  margin-bottom: 12px;
+}
+
+.formTitle {
+  font-weight: 950;
+  font-size: 1.2rem;
+}
+
+.formSubtitle {
+  margin-top: 4px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.formActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.formHint {
+  margin-top: 10px;
+  color: rgba(20, 24, 38, 0.55);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
 }
 
 /* Empty */
@@ -677,6 +718,12 @@ body {
     grid-template-columns: 1fr;
   }
   .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .formActions {
     grid-template-columns: 1fr;
   }
 }

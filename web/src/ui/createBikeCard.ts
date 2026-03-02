@@ -15,7 +15,7 @@ export function createBikeCard(bike: Bike): HTMLElement {
   article.setAttribute('data-testid', `bike-card-${id}`);
 
   article.innerHTML = `
-    <button class="bikeCard__main" type="button" data-testid="bike-open-${id}">
+    <button class="bikeCard__main" type="button" data-action="bike.open" data-testid="bike-open-${id}">
       <div class="bikeCard__name" data-testid="bike-name-${id}"></div>
       <div class="bikeCard__meta" data-testid="bike-meta-${id}"></div>
       <div class="bikeCard__odo">
@@ -25,14 +25,14 @@ export function createBikeCard(bike: Bike): HTMLElement {
     </button>
 
     <div class="bikeCard__actions">
-      <button class="iconbtn iconbtn--edit" type="button" data-testid="bike-edit-${id}" aria-label="Edit bike">
+      <button class="iconbtn iconbtn--edit" type="button" data-action="bike.edit.open" data-testid="bike-edit-${id}" aria-label="Edit bike">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
           <path d="M12 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
           <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
         </svg>
       </button>
 
-      <button class="iconbtn iconbtn--danger" type="button" data-testid="bike-delete-${id}" aria-label="Delete bike">
+      <button class="iconbtn iconbtn--danger" type="button" data-action="bike.delete" data-testid="bike-delete-${id}" aria-label="Delete bike">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
           <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
           <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
