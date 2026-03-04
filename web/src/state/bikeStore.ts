@@ -1,20 +1,11 @@
-export type Bike = {
-  id: string;
-  make: string;
-  year: number;
-  model: string;
-  odo: number;
-};
-
-type StoreState = {
-  bikes: Bike[];
-};
+import type { Bike } from '../types/bikes';
+import type { StoreState } from '../types/state';
 
 const STORAGE_KEY = 'motocare:v1:bikes';
 const listeners = new Set<() => void>();
-let state: StoreState = loadState();
+let state: StoreState = loadBikeState();
 
-function loadState(): StoreState {
+function loadBikeState(): StoreState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) throw new Error('No bikes found');

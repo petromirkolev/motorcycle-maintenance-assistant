@@ -26,7 +26,7 @@ export function createBikeCard(bike: Bike): HTMLElement {
         </svg>
       </button>
 
-      <button class="iconbtn iconbtn--danger" type="button" data-action="bike.delete" data-testid="bike-delete-${id}" aria-label="Delete bike">
+      <button class="iconbtn iconbtn--danger" type="button" data-action="bike.delete" data-bike-id="${id}" data-testid="bike-delete-${id}" aria-label="Delete bike">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
           <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
           <path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>

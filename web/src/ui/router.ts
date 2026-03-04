@@ -1,9 +1,4 @@
-import {
-  renderAddBikeScreen,
-  renderGarageScreen,
-  renderInitialScreen,
-  renderRegisterScreen,
-} from '../dom/render';
+import { render } from '../dom/render';
 import { dom } from '../dom/selectors';
 import { bikeStore, readBikeForm } from '../state/bikeStore';
 
@@ -35,19 +30,19 @@ function bindEvents(): void {
     switch (action) {
       case 'auth.login':
       case 'nav.garage':
-        renderGarageScreen();
+        render.garageScreen();
         break;
       case 'nav.register':
-        renderRegisterScreen();
+        render.registerScreen();
         break;
 
       case 'auth.logout':
       case 'nav.login':
-        renderInitialScreen();
+        render.initialScreen();
         break;
 
       case 'nav.bikeAdd':
-        renderAddBikeScreen();
+        render.addBikeScreen();
         break;
 
       case 'bike.add.submit': {
@@ -55,9 +50,14 @@ function bindEvents(): void {
         const input = readBikeForm(form);
         bikeStore.addBike(input);
         form.reset();
-        renderGarageScreen();
+        render.garageScreen();
         break;
       }
+      case 'bike.delete':
+        const id = target.closest<HTMLElement>('[data-action]')?.dataset.bikeId;
+        bikeStore.deleteBike(id!);
+        render.garageScreen();
+        break;
     }
   });
 }

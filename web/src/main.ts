@@ -1,5 +1,5 @@
 import { bindEvents } from './ui/router';
-import { renderInitialScreen } from './dom/render';
+import { render } from './dom/render';
 
-renderInitialScreen();
+render.initialScreen();
 bindEvents();
