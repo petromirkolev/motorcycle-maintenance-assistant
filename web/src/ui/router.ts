@@ -1,5 +1,6 @@
 import { render } from '../dom/render';
 import { dom } from '../dom/selectors';
+import { req } from '../utils/domHelper';
 import { bikeStore, readBikeForm } from '../state/bikeStore';
 import { showScreen } from './showScreen';
 import { appState } from '../types/state';
@@ -118,12 +119,13 @@ function bindEvents(): void {
           target.closest<HTMLElement>('[data-action]')?.dataset.bikeId;
         if (!appState.selectedBikeId) break;
 
-        dom.maintenanceEditBtn.dataset.bikeId = appState.selectedBikeId;
+        req(dom.maintenanceEditBtn, 'maintenanceEditBtn').dataset.bikeId =
+          appState.selectedBikeId;
+        req(dom.maintenanceDeleteBtn, 'maintenanceEditBtn').dataset.bikeId =
+          appState.selectedBikeId;
 
         appState.selectedBikeFound = bikeStore.getBike(appState.selectedBikeId);
         if (!appState.selectedBikeFound) break;
-
-        console.log(appState.selectedBikeFound);
 
         (dom.bikeName as HTMLElement).innerHTML =
           appState.selectedBikeFound.make;
@@ -132,8 +134,6 @@ function bindEvents(): void {
         (dom.bikeOdo as HTMLElement).innerHTML = String(
           appState.selectedBikeFound.odo,
         );
-        // set edit and delete buttons daa bike id
-        // set make/model/year/odo in html from bike data
       }
     }
   });
