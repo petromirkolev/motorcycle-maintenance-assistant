@@ -56,4 +56,8 @@ export const dom = {
   bikeModel: document.querySelector('[data-testid="bike-model"]'),
   bikeOdo: document.querySelector('[data-testid="bike-odometer"]'),
   bikeEdit: document.querySelector('[data-testid="btn-edit-bike"]'),
+
+  // maintenance modal
+  maintenanceModal: document.querySelector('[data-testid="modal-log"]'),
+  maintenanceSchedul: document.querySelector('[data-testid="modal-schedule"]'),
 };

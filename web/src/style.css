@@ -673,6 +673,58 @@ body {
   padding: 10px;
 }
 
+/* Softer icon button variant for modals / secondary actions */
+.iconbtn--soft {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 24, 38, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.modal__card {
+  position: relative;
+  width: min(520px, 100%);
+  background: var(--surface2);
+  border: 1px solid rgba(20, 24, 38, 0.1);
+  border-radius: 22px;
+  box-shadow: 0 30px 90px rgba(15, 18, 30, 0.22);
+  padding: 16px;
+}
+
+.modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.modal__title {
+  font-weight: 950;
+  font-size: 1.15rem;
+}
+
+.modal__sub {
+  margin-top: 4px;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
 /* Footer */
 .footer {
   margin-top: 18px;

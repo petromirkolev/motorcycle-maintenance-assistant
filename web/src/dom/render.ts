@@ -14,22 +14,23 @@ export const render = {
   },
 
   garageScreen(): void {
-    (dom.bikeGrid as HTMLDivElement).innerHTML = '';
+    showScreen('garage');
+
+    const grid = req(dom.bikeGrid, 'bikeGrid');
+
+    grid.innerHTML = '';
+
     const bikes = bikeStore.getBikes();
 
     req(dom.userEmail, 'userEmail').textContent = 'Hello, {user}!';
     req(dom.garageCount, 'garageCount').textContent =
       `${bikes.length} motorcycles`;
 
-    showScreen('garage');
+    bikes.forEach((bike) => grid.appendChild(createBikeCard(bike)));
 
-    if (bikes.length > 0) {
-      req(dom.garageEmpty, 'garageEmpty').classList.add('is-hidden');
-
-      bikes.forEach((bike) => dom.bikeGrid?.appendChild(createBikeCard(bike)));
-    } else {
-      req(dom.garageEmpty, 'garageEmpty').classList.remove('is-hidden');
-    }
+    bikes.length > 0
+      ? req(dom.garageEmpty, 'garageEmpty').classList.add('is-hidden')
+      : req(dom.garageEmpty, 'garageEmpty').classList.remove('is-hidden');
   },
 
   addBikeScreen(): void {
