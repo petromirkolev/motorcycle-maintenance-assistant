@@ -4,6 +4,7 @@ import { req } from '../utils/domHelper';
 import { bikeStore, readBikeForm } from '../state/bikeStore';
 import { showScreen } from './showScreen';
 import { appState } from '../types/state';
+import { maintenanceStore } from '../state/maintenanceStore';
 
 type Action =
   | 'auth.login'
@@ -19,7 +20,9 @@ type Action =
   | 'bike.edit.submit'
   | 'log.service'
   | 'schedule.service'
-  | 'modal.close';
+  | 'modal.close'
+  | 'schedule.submit'
+  | 'log.submit';
 
 function bindEvents(): void {
   document.addEventListener('click', (e: MouseEvent) => {
@@ -142,12 +145,29 @@ function bindEvents(): void {
       }
 
       case 'log.service': {
-        render.logServiceModal();
+        render.openServiceModal('log.service');
+        break;
+      }
+
+      case 'schedule.service': {
+        render.openServiceModal('schedule.service');
         break;
       }
 
       case 'modal.close': {
-        dom.maintenanceModal?.classList.add('is-hidden');
+        render.closeServiceModal();
+        break;
+      }
+
+      case 'log.submit': {
+        maintenanceStore.addLog();
+        render.closeServiceModal();
+        break;
+      }
+
+      case 'schedule.submit': {
+        maintenanceStore.schedule();
+        render.closeServiceModal();
         break;
       }
     }

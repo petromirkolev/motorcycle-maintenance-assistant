@@ -41,7 +41,16 @@ export const render = {
     showScreen('bikeEdit');
   },
 
-  logServiceModal(): void {
-    dom.maintenanceModal?.classList.remove('is-hidden');
+  openServiceModal(target: any): void {
+    if (target === 'log.service')
+      dom.maintenanceModal?.classList.remove('is-hidden');
+
+    if (target === 'schedule.service')
+      dom.maintenanceSchedule?.classList.remove('is-hidden');
+  },
+
+  closeServiceModal(): void {
+    dom.maintenanceModal?.classList.add('is-hidden');
+    dom.maintenanceSchedule?.classList.add('is-hidden');
   },
 };

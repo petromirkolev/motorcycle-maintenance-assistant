@@ -3,5 +3,5 @@ export type Bike = {
   make: string;
   year: number;
   model: string;
-  odo: number | number;
+  odo: number | string;
 };
