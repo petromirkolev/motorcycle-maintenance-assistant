@@ -1,15 +1,19 @@
 import type { Bike } from './bikes';
+import type { Maintenance } from './maintenance';
 
 export type StoreState = {
   bikes: Bike[];
+  maintenance: Maintenance[];
 };
 
 type AppState = {
-  selectedBikeId: string | undefined;
-  selectedBikeFound: Bike | undefined;
+  selectedBikeId: string | null;
+  selectedBikeFound: Bike | null;
+  currentMaintenanceItem: string | null;
 };
 
 export const appState: AppState = {
-  selectedBikeId: undefined,
-  selectedBikeFound: undefined,
+  selectedBikeId: null,
+  selectedBikeFound: null,
+  currentMaintenanceItem: null,
 };

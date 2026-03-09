@@ -134,6 +134,8 @@ function bindEvents(): void {
           appState.selectedBikeId;
         req(dom.maintenanceDeleteBtn, 'maintenanceDeleteBtn').dataset.bikeId =
           appState.selectedBikeId;
+        req(dom.bikeScreen, 'bikeScreen').dataset.bikeId =
+          appState.selectedBikeId;
 
         appState.selectedBikeFound = bikeStore.getBike(appState.selectedBikeId);
         if (!appState.selectedBikeFound) break;
@@ -149,6 +151,12 @@ function bindEvents(): void {
       }
 
       case 'log.service': {
+        const el =
+          target.closest<HTMLElement>('[data-action]')?.parentElement
+            ?.parentElement?.dataset.name;
+
+        console.log(el);
+
         render.openServiceModal('log.service');
         break;
       }

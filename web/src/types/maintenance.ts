@@ -1,4 +1,4 @@
-export type MaintenanceTask = {
+export type Maintenance = {
   id: string;
   bikeId: string;
   name: string;

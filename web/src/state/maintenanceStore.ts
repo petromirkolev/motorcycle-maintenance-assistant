@@ -1,12 +1,12 @@
-////  On each page load/reload, update:
-// Due / Overdue / On track
-// Recent History
-// Record
-// Last
-// Due
+import { req } from '../utils/domHelper';
+import { dom } from '../dom/selectors';
+import type { MaintenanceTask } from '../types/maintenance';
 
-// import type { Maintenance } from '../types/maintenance';
-// import type { StoreState } from '../types/state';
+const STORAGE_KEY = 'motocare:v1:maintenance';
+const listeners = new Set<() => void>();
+let state: MaintenanceStoreState = loadMaintenanceState();
+
+function loadMaintenanceState(): MaintenanceStoreState {}
 
 export function readMaintenanceLogForm(form: HTMLFormElement) {
   const fd = new FormData(form);
@@ -21,12 +21,24 @@ export function readMaintenanceLogForm(form: HTMLFormElement) {
 }
 
 export const maintenanceStore = {
+  updateTaskInfo() {},
+
   addLog(input: Object) {
     console.log(input);
+
+    const bikeId = req(dom.bikeScreen, 'bikeScreen').dataset.bikeId;
+
+    console.log(bikeId);
 
     // odo should not be less than actual odo
   },
   schedule() {
     console.log('log scheduled');
   },
+
+  updateRecentHistory() {},
+
+  updateMaintenanceItemProgress() {},
+
+  updateOverallProgress() {},
 };

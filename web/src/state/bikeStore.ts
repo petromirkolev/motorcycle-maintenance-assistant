@@ -8,15 +8,17 @@ let state: StoreState = loadBikeState();
 function loadBikeState(): StoreState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) throw new Error('No bikes found');
-    const parsed = JSON.parse(raw) as StoreState;
+    if (!raw) {
+      return { bikes: [], maintenance: [] };
+    }
+    const parsed = JSON.parse(raw) as Partial<StoreState>;
 
-    if (!parsed || !Array.isArray(parsed.bikes))
-      throw new Error('No bikes found');
-
-    return parsed;
+    return {
+      bikes: Array.isArray(parsed.bikes) ? parsed.bikes : [],
+      maintenance: Array.isArray(parsed.maintenance) ? parsed.maintenance : [],
+    };
   } catch {
-    return { bikes: [] };
+    return { bikes: [], maintenance: [] };
   }
 }
 
@@ -120,7 +122,7 @@ export const bikeStore = {
   },
 
   reset() {
-    state = { bikes: [] };
+    state = { bikes: [], maintenance: [] };
     notify();
   },
 };
