@@ -4,7 +4,10 @@ import { req } from '../utils/domHelper';
 import { bikeStore, readBikeForm } from '../state/bikeStore';
 import { showScreen } from './showScreen';
 import { appState } from '../types/state';
-import { maintenanceStore } from '../state/maintenanceStore';
+import {
+  maintenanceStore,
+  readMaintenanceLogForm,
+} from '../state/maintenanceStore';
 
 type Action =
   | 'auth.login'
@@ -58,6 +61,7 @@ function bindEvents(): void {
       case 'bike.add.submit': {
         const form = (dom.addBikeForm as HTMLFormElement) || null;
         const input = readBikeForm(form);
+
         bikeStore.addBike(input);
         form.reset();
         render.garageScreen();
@@ -160,7 +164,12 @@ function bindEvents(): void {
       }
 
       case 'log.submit': {
-        maintenanceStore.addLog(target);
+        const form = (dom.logServiceForm as HTMLFormElement) || null;
+        const input = readMaintenanceLogForm(form);
+
+        maintenanceStore.addLog(input);
+
+        form.reset();
         render.closeServiceModal();
         break;
       }

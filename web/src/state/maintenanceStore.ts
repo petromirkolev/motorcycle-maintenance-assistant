@@ -7,7 +7,6 @@
 
 // import type { Maintenance } from '../types/maintenance';
 // import type { StoreState } from '../types/state';
-import { dom } from '../dom/selectors';
 
 export function readMaintenanceLogForm(form: HTMLFormElement) {
   const fd = new FormData(form);
@@ -22,14 +21,10 @@ export function readMaintenanceLogForm(form: HTMLFormElement) {
 }
 
 export const maintenanceStore = {
-  addLog(target: string) {
-    const form = (dom.logServiceForm as HTMLFormElement) || null;
-    const input = readMaintenanceLogForm(form);
-
-    console.log(target);
+  addLog(input: Object) {
+    console.log(input);
 
     // odo should not be less than actual odo
-    console.log(input);
   },
   schedule() {
     console.log('log scheduled');
