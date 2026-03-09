@@ -6,6 +6,7 @@ Moto Care is a lightweight motorcycle maintenance tracker that helps you stay on
 
 - **Garage**
   - Add motorcycles (name/model/year + current odometer in km)
+  - Edit motorcycles (name/model/year + current odometer in km)
   - Delete motorcycles
   - Open a bike to view its maintenance dashboard
 
@@ -13,7 +14,8 @@ Moto Care is a lightweight motorcycle maintenance tracker that helps you stay on
   - Built-in templates (oil, chain, tyres, fluids, etc.)
 
 - **Service logs**
-  - Log a service event: "doneAt" (ISO UTC) + "odometerKm"
+  - Log a service event
+  - Schedule a service event
 
 - **Dashboard reminders (in-app only)**
   - Status: **Overdue / Due now / Due soon / OK**
