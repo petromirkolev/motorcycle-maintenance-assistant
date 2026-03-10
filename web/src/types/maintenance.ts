@@ -1,7 +1,9 @@
+/* Types related to maintenance records and schedules */
+
 export type Maintenance = {
   id: string;
   bikeId: string;
-  name: string | undefined;
+  name: string;
   date: string | null;
   odo: number | null;
   intervalKm: number | null;

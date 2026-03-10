@@ -1,3 +1,6 @@
+/* Helper functions for checking the overdue status of maintenance items based on date and odometer readings.
+ */
+
 import { bikeStore } from '../state/bikeStore';
 import type { Maintenance } from '../types/maintenance';
 

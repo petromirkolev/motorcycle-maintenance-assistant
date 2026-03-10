@@ -1,3 +1,6 @@
+/* Helper functions for DOM manipulation related to the motorcycle maintenance assistant application.
+ */
+
 import type { Maintenance } from '../types/maintenance';
 
 export function req<T extends HTMLElement>(el: T | null, name: string): T {
@@ -12,7 +15,7 @@ export function markOverdueTasks(item: Maintenance[]) {
       .querySelector<HTMLElement>('.mcard__top .mcard__title')
       ?.classList.remove('is-overdue');
 
-    item.forEach((item: any) => {
+    item.forEach((item) => {
       if (item.name === card.dataset.name) {
         card
           .querySelector<HTMLElement>('.mcard__top .mcard__title')

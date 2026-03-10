@@ -1,3 +1,7 @@
+/* Module to manage screen visibility in the Motorcycle Maintenance Assistant app.
+ * Provides a function to show a specific screen while hiding others, and manages the visibility of the navigation bar based on the current screen.
+ */
+
 import { dom } from '../dom/selectors';
 
 export type Screen =

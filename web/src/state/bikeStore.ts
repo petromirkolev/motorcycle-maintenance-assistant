@@ -1,3 +1,6 @@
+/* Bike store manages the list of bikes and their basic information. It provides functions to add, update, delete, and retrieve bikes. It also includes validation logic to ensure that bike data is consistent and valid. When a bike is deleted, it also removes any associated maintenance records and logs to maintain data integrity.
+ */
+
 import { dom } from '../dom/selectors';
 import type { Bike } from '../types/bikes';
 import { getState, updateState, setState, newId } from './stateStorage';

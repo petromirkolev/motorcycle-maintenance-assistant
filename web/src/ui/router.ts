@@ -1,3 +1,6 @@
+/* Router module to handle navigation and user interactions in the Motorcycle Maintenance Assistant app. Listens for click events on elements with data-action attributes and triggers corresponding actions.
+ */
+
 import { render } from '../dom/render';
 import { dom } from '../dom/selectors';
 import { req } from '../utils/domHelper';
@@ -156,20 +159,23 @@ function bindEvents(): void {
       }
 
       case 'log.service': {
-        appState.currentMaintenanceItem =
-          target.closest<HTMLElement>(
-            '[data-action]',
-          )?.parentElement?.parentElement?.dataset.name;
+        const maintenanceItem =
+          target.closest<HTMLElement>('[data-action]')?.parentElement
+            ?.parentElement?.dataset.name;
+
+        if (!maintenanceItem) break;
+        appState.currentMaintenanceItem = maintenanceItem;
 
         render.openServiceModal('log.service');
         break;
       }
 
       case 'schedule.service': {
-        appState.currentMaintenanceItem =
-          target.closest<HTMLElement>(
-            '[data-action]',
-          )?.parentElement?.parentElement?.dataset.name;
+        const maintenanceItem =
+          target.closest<HTMLElement>('[data-action]')?.parentElement
+            ?.parentElement?.dataset.name;
+        if (!maintenanceItem) break;
+        appState.currentMaintenanceItem = maintenanceItem;
         render.openServiceModal('schedule.service');
         break;
       }

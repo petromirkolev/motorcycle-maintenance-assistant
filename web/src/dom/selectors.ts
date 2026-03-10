@@ -1,12 +1,14 @@
+/* DOM selectors for the application. These are used to access and manipulate specific elements in the DOM throughout the app. */
+
 export const dom = {
-  // top bar
+  /** Navigation bar */
   logout: document.querySelector<HTMLElement>('[data-testid="btn-logout"]'),
   userEmail: document.querySelector<HTMLElement>('[data-testid="user-email"]'),
 
-  // buttons
+  /** Buttons */
   button: document.querySelector<HTMLButtonElement>('.btn--primary'),
 
-  // login screen inputs
+  /** Login screen inputs */
   loginEmailInput: document.querySelector<HTMLInputElement>(
     '[data-testid="login-email"]',
   ),
@@ -14,7 +16,7 @@ export const dom = {
     '[data-testid="login-password"]',
   ),
 
-  // register screen inputs
+  /** Register screen inputs */
   regEmailInput: document.querySelector<HTMLInputElement>(
     '[data-testid="register-email"]',
   ),
@@ -28,7 +30,7 @@ export const dom = {
     '[data-testid="btn-register-form"]',
   ),
 
-  // screens
+  /** Screens */
   nav: document.querySelector<HTMLElement>('[data-testid="topbar"]'),
   loginScreen: document.querySelector<HTMLElement>(
     '[data-testid="screen-login"]',
@@ -49,7 +51,7 @@ export const dom = {
     '[data-testid="screen-bike-edit"]',
   ),
 
-  // garage screen
+  /** Garage screen */
   garageEmpty: document.querySelector<HTMLElement>(
     '[data-testid="garage-empty"]',
   ),
@@ -57,19 +59,19 @@ export const dom = {
     '[data-testid="garage-count"]',
   ),
 
-  // bikes grid
+  /** Bikes grid */
   bikeGrid: document.querySelector<HTMLElement>('[data-testid="garage-grid"]'),
   noBikesYetGrid: document.querySelector<HTMLElement>(
     '[data-testid="garage-empty"]',
   ),
 
-  // add bike form
+  /** Add bike form */
   addBikeForm: document.querySelector<HTMLFormElement>(
     '[data-testid="add-bike-form"]',
   ),
   addHind: document.querySelector('[data-testid="add-hint"]'),
 
-  // edit bike form
+  /** Edit bike form */
   editBikeForm: document.querySelector<HTMLElement>(
     '[data-testid="edit-bike-form"]',
   ),
@@ -82,7 +84,7 @@ export const dom = {
     '[data-testid="edit-hint"]',
   ),
 
-  // maintenance header
+  /** Maintenance header */
   maintenanceEditBtn: document.querySelector<HTMLButtonElement>(
     '[data-testid="btn-edit-bike"]',
   ),
@@ -102,7 +104,7 @@ export const dom = {
     '[data-testid="btn-edit-bike"]',
   ),
 
-  // maintenance modal
+  /** Maintenance modal */
   maintenanceModal: document.querySelector<HTMLModElement>(
     '[data-testid="modal-log"]',
   ),
@@ -110,7 +112,7 @@ export const dom = {
     '[data-testid="modal-schedule"]',
   ),
 
-  // maintenance log service
+  /** Maintenance > Log service */
   logServiceForm: document.querySelector<HTMLFormElement>(
     '[data-testid="log-form"]',
   ),
@@ -118,7 +120,7 @@ export const dom = {
     '[data-testid="schedule-form"]',
   ),
 
-  // maintenance stats
+  /** Maintenance stats */
   maintenanceOnTrack: document.querySelector<HTMLElement>(
     '[data-testid="stat-ok-count"]',
   ),

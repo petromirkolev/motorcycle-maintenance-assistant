@@ -1,3 +1,7 @@
+/* Maintenance store manages the maintenance tasks and logs for each bike. It provides functions to add new maintenance logs, update existing ones, and schedule future maintenance tasks. The store also includes logic to calculate due dates and mark tasks as due or overdue based on the last service date and the defined intervals. It interacts with the bike store to ensure that maintenance records are associated with the correct bike.
+ * The maintenance store also updates the overall maintenance progress and recent history displayed in the UI, allowing users to easily track the status of their bike's maintenance tasks. It ensures that all maintenance data is consistent and up-to-date, providing a seamless experience for users managing their motorcycle maintenance schedules.
+ */
+
 import type {
   Maintenance,
   MaintenanceLogInput,
@@ -49,7 +53,7 @@ export function getMaintenanceTask(
   name: string,
 ): Maintenance | undefined {
   return getState().maintenance.find(
-    (a: any) => a.bikeId === bikeId && a.name === name,
+    (a) => a.bikeId === bikeId && a.name === name,
   );
 }
 
@@ -187,7 +191,10 @@ export const maintenanceStore = {
       checkOverdueStatus(item, selectedBike, today),
     );
 
-    // Update "Recent History"
+    /** Update "Recent History"
+     * - If there are maintenance logs, show the most recent one with its date and odo.
+     * - If there are no logs, show a message encouraging the user to log their first service.
+     */
     if (lastServicedItem !== undefined) {
       dom.maintenanceHistory.querySelector('.empty__title').textContent =
         lastServicedItem.name
@@ -203,13 +210,13 @@ export const maintenanceStore = {
         'Log a service to start building your maintenance timeline.';
     }
 
-    // Update Overdue / Due Soon / On Track
+    /* Update Overdue / Due Soon / On Track */
     dom.maintenanceOnTrack.textContent =
       totalServiceItems.length - totalOverdueItems.length;
     dom.maintenanceDueSoon.textContent = totalDueItems.length;
     dom.maintenanceOverdue.textContent = totalOverdueItems.length;
 
-    // Mark overdue tasks
+    /* Mark overdue tasks with red and due soon tasks with orange in the maintenance list. */
     markOverdueTasks(totalOverdueItems);
     markDueTasks(totalDueItems);
   },

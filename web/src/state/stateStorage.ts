@@ -1,3 +1,5 @@
+/* State storage for the application */
+
 import type { StoreState } from '../types/state';
 
 const STORAGE_KEY = 'motocare:v1:bikes';
