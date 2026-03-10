@@ -40,8 +40,6 @@ function bindEvents(): void {
 
     const action = el.dataset.action as Action;
 
-    console.log(action);
-
     if (!action) return;
 
     switch (action) {
