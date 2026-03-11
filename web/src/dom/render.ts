@@ -8,6 +8,7 @@ import { bikeStore } from '../state/bike-store';
 import { createBikeCard } from '../ui/createBikeCard';
 import { showScreen } from '../ui/showScreen';
 import { req } from '../utils/domHelper';
+import { getCurrentUser } from '../state/auth-state';
 
 export const render = {
   initialScreen(): void {
@@ -26,8 +27,10 @@ export const render = {
     grid.innerHTML = '';
 
     const bikes = bikeStore.getBikes();
+    const currentUser = getCurrentUser();
 
-    req(dom.userEmail, 'userEmail').textContent = 'Hello, {user}!';
+    req(dom.userEmail, 'userEmail').textContent =
+      `Hello, ${currentUser?.email}!`;
     req(dom.garageCount, 'garageCount').textContent =
       bikes.length > 1 || bikes.length === 0
         ? `${bikes.length} motorcycles`

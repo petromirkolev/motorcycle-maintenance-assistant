@@ -58,6 +58,7 @@ function bindEvents(): void {
           const response = await loginUser(input.email, input.password);
 
           setCurrentUser(response.user);
+
           loginForm?.reset();
           render.garageScreen();
         } catch (error) {
@@ -74,6 +75,8 @@ function bindEvents(): void {
         break;
 
       case 'nav.register':
+        const loginForm = dom.loginForm as HTMLFormElement;
+        loginForm?.reset();
         render.registerScreen();
         break;
 
