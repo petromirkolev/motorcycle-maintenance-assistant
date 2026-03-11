@@ -48,10 +48,13 @@ function bindEvents(): void {
     const action = el.dataset.action as Action;
     if (!action) return;
 
-    console.log(action);
-
     switch (action) {
       case 'nav.login':
+        const forms = document.querySelectorAll('form');
+
+        forms.forEach((form) => {
+          (form as HTMLFormElement).reset();
+        });
         render.initialScreen();
         break;
 
@@ -64,7 +67,10 @@ function bindEvents(): void {
           setCurrentUser(response.user);
 
           loginForm?.reset();
-          render.garageScreen();
+          render.errorMessage('Login success, opening garage...', 'auth.login');
+          setTimeout(() => {
+            render.garageScreen();
+          }, 3000);
         } catch (error) {
           error instanceof Error
             ? render.errorMessage(error.message, action)
@@ -84,9 +90,11 @@ function bindEvents(): void {
           const regForm = dom.regForm as HTMLFormElement;
           const input = readRegForm(regForm);
           await registerUser(input.email, input.password);
-          alert('Registration successful!');
+          render.errorMessage('Registration successful!', 'auth.register');
           regForm?.reset();
-          render.initialScreen();
+          setTimeout(() => {
+            render.initialScreen();
+          }, 3000);
         } catch (error) {
           error instanceof Error
             ? render.errorMessage(error.message, action)
@@ -134,7 +142,9 @@ function bindEvents(): void {
 
           bikeStore.deleteBike(id);
           render.garageScreen();
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
         break;
 
       case 'bike.edit.open':

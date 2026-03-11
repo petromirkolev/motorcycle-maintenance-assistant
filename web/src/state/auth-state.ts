@@ -1,5 +1,4 @@
 import type { AuthUser } from '../types/auth-user';
-import { dom } from '../dom/selectors';
 
 const AUTH_USER_KEY = 'motocare.auth.user';
 
@@ -34,9 +33,13 @@ export function getCurrentUser(): AuthUser | null {
 
 export function readLoginForm(form: HTMLFormElement) {
   const fd = new FormData(form);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const email: string = String(fd.get('email') ?? '').trim();
   if (!email) throw new Error('Email is required');
+
+  const emailCheck = emailRegex.test(email);
+  if (!emailCheck) throw new Error('Invalid email format');
 
   const password: string = String(fd.get('password') ?? '').trim();
   if (!password) throw new Error('Password is required');
@@ -52,7 +55,7 @@ export function readRegForm(form: HTMLFormElement) {
   if (!email) throw new Error('Email is required');
 
   const emailCheck = emailRegex.test(email);
-  if (!emailCheck) throw new Error('Invalid email');
+  if (!emailCheck) throw new Error('Invalid email format');
 
   const password: string = String(fd.get('password') ?? '').trim();
   if (!password) throw new Error('Password is required');
