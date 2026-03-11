@@ -10,14 +10,14 @@ import type {
   MaintenanceSchedulePatch,
 } from '../types/maintenance';
 import type { MaintenanceLog } from '../types/maintenanceLog';
-import { getState, updateState, newId } from './stateStorage';
-import { bikeStore } from './bikeStore';
+import { getState, updateState, newId } from './state-storage';
+import { bikeStore } from './bike-store';
 import { appState } from '../types/state';
-import { checkDueStatus } from '../utils/serviceDueHelper';
+import { checkDueStatus } from '../utils/service-due-helper';
 import { checkOverdueStatus } from '../utils/serviceOverdueHelper';
-import { checkServiceItemsStatus } from '../utils/serviceItemsHelper';
-import { markDueTasks, markOverdueTasks } from '../utils/domHelper';
-//
+import { checkServiceItemsStatus } from '../utils/service-items-helper';
+import { markDueTasks, markOverdueTasks } from '../utils/dom-helper';
+
 export function readMaintenanceLogForm(
   form: HTMLFormElement,
 ): MaintenanceLogInput {
