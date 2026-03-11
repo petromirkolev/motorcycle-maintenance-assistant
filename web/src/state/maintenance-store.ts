@@ -10,8 +10,8 @@ import type {
   MaintenanceSchedulePatch,
 } from '../types/maintenance';
 import type { MaintenanceLog } from '../types/maintenanceLog';
-import { getState, updateState, newId } from './stateStorage';
-import { bikeStore } from './bikeStore';
+import { getState, updateState, newId } from './state-storage';
+import { bikeStore } from './bike-store';
 import { appState } from '../types/state';
 import { checkDueStatus } from '../utils/serviceDueHelper';
 import { checkOverdueStatus } from '../utils/serviceOverdueHelper';

@@ -3,7 +3,7 @@
 
 import { dom } from '../dom/selectors';
 import type { Bike } from '../types/bikes';
-import { getState, updateState, setState, newId } from './stateStorage';
+import { getState, updateState, setState, newId } from './state-storage';
 
 export function readBikeForm(form: HTMLFormElement) {
   const fd = new FormData(form);

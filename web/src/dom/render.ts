@@ -4,7 +4,7 @@
  */
 
 import { dom } from './selectors';
-import { bikeStore } from '../state/bikeStore';
+import { bikeStore } from '../state/bike-store';
 import { createBikeCard } from '../ui/createBikeCard';
 import { showScreen } from '../ui/showScreen';
 import { req } from '../utils/domHelper';

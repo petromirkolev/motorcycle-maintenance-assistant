@@ -4,7 +4,7 @@
 import { render } from '../dom/render';
 import { dom } from '../dom/selectors';
 import { req } from '../utils/domHelper';
-import { bikeStore, readBikeForm } from '../state/bikeStore';
+import { bikeStore, readBikeForm } from '../state/bike-store';
 import { appState } from '../types/state';
 import {
   getMaintenanceTask,
