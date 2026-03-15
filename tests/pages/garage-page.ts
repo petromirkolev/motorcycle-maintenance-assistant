@@ -20,6 +20,7 @@ export class GaragePage {
   readonly editBikeOdo: Locator;
   readonly editBikeSaveButton: Locator;
   readonly editBikeCancelButton: Locator;
+  readonly editBikeMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -41,9 +42,10 @@ export class GaragePage {
     this.editBikeOdo = this.page.getByTestId('edit-bike-odometer');
     this.editBikeSaveButton = this.page.getByTestId('btn-edit-bike-save');
     this.editBikeCancelButton = this.page.getByTestId('btn-edit-bike-cancel');
+    this.editBikeMessage = this.page.getByTestId('edit-bike-hint');
   }
 
-  async expectLoaded(): Promise<void> {
+  async expectGarageLoaded(): Promise<void> {
     await expect(this.garageScreen).toBeVisible();
   }
 
@@ -57,32 +59,34 @@ export class GaragePage {
     await expect(this.editBikeScreen).toBeVisible();
   }
 
-  async fillAndSubmitBikeForm({ make, model, year, odometer }): Promise<void> {
-    await this.expectLoaded();
+  async fillAddBikeForm({ make, model, year, odometer }): Promise<void> {
     await this.openAddBike();
     await this.addBikeMake.fill(make);
     await this.addBikeModel.fill(model);
     await this.addBikeYear.fill(year);
     await this.addBikeOdo.fill(odometer);
-    await this.submitBike();
+    await this.submitAddBike();
   }
 
-  async fillAndSubmitBikeEditForm({
-    make,
-    model,
-    year,
-    odometer,
-  }): Promise<void> {
-    await this.editBikeButton.click();
+  async fillEditBikeForm({ make, model, year, odometer }): Promise<void> {
+    await this.openEditBike();
     await this.editBikeMake.fill(make);
     await this.editBikeModel.fill(model);
     await this.editBikeYear.fill(year);
     await this.editBikeOdo.fill(odometer);
+    await this.submitEditBike();
+  }
+
+  async submitAddBike(): Promise<void> {
+    await this.submitBikeButton.click();
+  }
+
+  async submitEditBike(): Promise<void> {
     await this.editBikeSaveButton.click();
   }
 
-  async submitBike(): Promise<void> {
-    await this.submitBikeButton.click();
+  async cancelEditBike(): Promise<void> {
+    await this.editBikeCancelButton.click();
   }
 
   async expectBikeVisible(name: string): Promise<void> {
@@ -99,5 +103,9 @@ export class GaragePage {
 
   async expectSuccess(message: string): Promise<void> {
     await expect(this.addBikeMessage).toContainText(message);
+  }
+
+  async expectEditError(message: string): Promise<void> {
+    await expect(this.editBikeMessage).toContainText(message);
   }
 }
