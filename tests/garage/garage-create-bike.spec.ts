@@ -35,21 +35,21 @@ test.describe('Garage page test suite', () => {
     await loginPage.goto();
     await loginPage.login(email, password);
     await loginPage.expectSuccess('Login success, opening garage...');
-    await garagePage.expectLoaded();
+    await garagePage.expectGarageLoaded();
   });
 
   test.describe('Create bike', () => {
     test('Create bike with valid data', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm(bike);
+      await garagePage.fillAddBikeForm(bike);
       await garagePage.expectBikeVisible(bike.make);
     });
 
     test('Create bike with missing make and valid other fields', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({ ...bike, make: '' });
+      await garagePage.fillAddBikeForm({ ...bike, make: '' });
       await garagePage.expectError('Make is required');
       await garagePage.expectBikeNotVisible(bike.make);
     });
@@ -57,7 +57,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with missing model and valid other fields', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({
+      await garagePage.fillAddBikeForm({
         ...bike,
         make: 'Yamaha',
         model: '',
@@ -69,7 +69,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with missing year and valid other fields', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({
+      await garagePage.fillAddBikeForm({
         ...bike,
         make: 'Yamaha',
         year: '',
@@ -81,7 +81,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with empty odo when odo is optional', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({
+      await garagePage.fillAddBikeForm({
         ...bike,
         make: 'Yamaha',
         odometer: '',
@@ -92,7 +92,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with missing all fields', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({
+      await garagePage.fillAddBikeForm({
         ...bike,
         make: '',
         model: '',
@@ -108,7 +108,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with invalid year < 1900', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({ ...bike, year: '1899' });
+      await garagePage.fillAddBikeForm({ ...bike, year: '1899' });
       await garagePage.expectError('Invalid year');
       await garagePage.expectBikeNotVisible(bike.make);
     });
@@ -116,7 +116,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with invalid year > 2100', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({ ...bike, year: '2101' });
+      await garagePage.fillAddBikeForm({ ...bike, year: '2101' });
       await garagePage.expectError('Invalid year');
       await garagePage.expectBikeNotVisible(bike.make);
     });
@@ -124,7 +124,7 @@ test.describe('Garage page test suite', () => {
     test('Create bike with invalid odo < 0 km', async () => {
       const bike = makeBike();
 
-      await garagePage.fillAndSubmitBikeForm({
+      await garagePage.fillAddBikeForm({
         ...bike,
         odometer: '-100',
       });
