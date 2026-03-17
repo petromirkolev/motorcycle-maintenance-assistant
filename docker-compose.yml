@@ -8,3 +8,11 @@ services:
       - ./api/data:/app/data
     environment:
       - DB_PATH=./data/motocare.sqlite
+
+  web:
+    build: ./web
+    container_name: motocare-web
+    ports:
+      - '4173:4173'
+    depends_on:
+      - api
