@@ -1,5 +1,5 @@
 {
-  "name": "motorcycle-maintenance-assistant",
+  "name": "motocare",
   "version": "1.0.0",
   "description": "MotoCare is a small, real-life usable motorcycle maintenance reminder app.",
   "main": "index.js",
@@ -16,16 +16,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petromirkolev/motorcycle-maintenance-assistant"
+    "url": "git+https://github.com/petromirkolev/motocare"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/petromirkolev/motorcycle-maintenance-assistant/issues"
+    "url": "https://github.com/petromirkolev/motocare/issues"
   },
-  "homepage": "https://github.com/petromirkolev/motorcycle-maintenance-assistant#readme",
+  "homepage": "https://github.com/petromirkolev/motocare#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0",
