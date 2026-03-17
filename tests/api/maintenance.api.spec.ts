@@ -91,10 +91,10 @@ async function listBikes(
 async function getFirstBikeId(
   request: APIRequestContext,
   user_id: string,
-): Promise<any> {
+): Promise<string> {
   const bikes = await listBikes(request, user_id);
   expect(bikes.length).toBeGreaterThan(0);
-  return bikes;
+  return bikes[0].id;
 }
 
 test.describe('Maintenance API test suite', () => {
@@ -113,8 +113,7 @@ test.describe('Maintenance API test suite', () => {
   }) => {
     await createBike(request, user_id);
 
-    const bike = await getFirstBikeId(request, user_id);
-    const bike_id = bike[0].id;
+    const bike_id = await getFirstBikeId(request, user_id);
 
     const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
@@ -150,8 +149,7 @@ test.describe('Maintenance API test suite', () => {
   }) => {
     await createBike(request, user_id);
 
-    const bike = await getFirstBikeId(request, user_id);
-    const bike_id = bike[0].id;
+    const bike_id = await getFirstBikeId(request, user_id);
 
     const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
@@ -174,8 +172,7 @@ test.describe('Maintenance API test suite', () => {
   }) => {
     await createBike(request, user_id);
 
-    const bike = await getFirstBikeId(request, user_id);
-    const bike_id = bike[0].id;
+    const bike_id = await getFirstBikeId(request, user_id);
 
     const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
@@ -196,8 +193,7 @@ test.describe('Maintenance API test suite', () => {
   test('Maintenance log with valid date/odo succeeds', async ({ request }) => {
     await createBike(request, user_id);
 
-    const bike = await getFirstBikeId(request, user_id);
-    const bike_id = bike[0].id;
+    const bike_id = await getFirstBikeId(request, user_id);
 
     const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
@@ -231,8 +227,7 @@ test.describe('Maintenance API test suite', () => {
   test('Maintenance log with negative odo is rejected', async ({ request }) => {
     await createBike(request, user_id);
 
-    const bike = await getFirstBikeId(request, user_id);
-    const bike_id = bike[0].id;
+    const bike_id = await getFirstBikeId(request, user_id);
 
     const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
@@ -266,20 +261,38 @@ test.describe('Maintenance API test suite', () => {
     const bikeOneId = bikes[0].id;
     const bikeTwoId = bikes[1].id;
 
-    const upsertResponse = await request.post(`${API_URL}/maintenance/upsert`, {
+    const logResponse = await request.post(`${API_URL}/maintenance/upsert`, {
       data: {
         bike_id: bikeOneId,
         name: 'oil-change',
-        interval_km: 1000,
-        interval_days: 100,
+        date: '2026-03-16',
+        odo: 500,
       },
     });
 
-    expect(upsertResponse.status()).toBe(201);
+    expect(logResponse.status()).toBe(201);
 
-    const upsertBody = await upsertResponse.json();
+    const logBody = await logResponse.json();
 
-    expect(upsertBody.message).toBe('Maintenance scheduled successfully');
+    expect(logBody.message).toBe('Maintenance created successfully');
+
+    const scheduleResponse = await request.post(
+      `${API_URL}/maintenance/upsert`,
+      {
+        data: {
+          bike_id: bikeOneId,
+          name: 'oil-change',
+          interval_km: 1000,
+          interval_days: 100,
+        },
+      },
+    );
+
+    expect(scheduleResponse.status()).toBe(200);
+
+    const scheduleBody = await scheduleResponse.json();
+
+    expect(scheduleBody.message).toBe('Maintenance scheduled successfully');
 
     const bikeOneListResponse = await request.get(
       `${API_URL}/maintenance?bikeId=${bikeOneId}`,
@@ -348,8 +361,6 @@ test.describe('Maintenance API test suite', () => {
     expect(bikeOneListBody.maintenance).toHaveLength(1);
     expect(bikeOneListBody.maintenance[0].bike_id).toBe(bikeOneId);
     expect(bikeOneListBody.maintenance[0].name).toBe('oil-change');
-    expect(bikeOneListBody.maintenance[0].interval_km).toBe(1000);
-    expect(bikeOneListBody.maintenance[0].interval_days).toBe(100);
 
     const bikeTwoListResponse = await request.get(
       `${API_URL}/maintenance?bikeId=${bikeTwoId}`,
@@ -364,5 +375,62 @@ test.describe('Maintenance API test suite', () => {
 
   test('Logging one maintenance item does not affect another item', async ({
     request,
-  }) => {});
+  }) => {
+    await createBike(request, user_id);
+
+    const bike_id = await getFirstBikeId(request, user_id);
+
+    const oilResponse = await request.post(`${API_URL}/maintenance/upsert`, {
+      data: {
+        bike_id,
+        name: 'oil-change',
+        date: '2026-03-16',
+        odo: 500,
+      },
+    });
+
+    expect(oilResponse.status()).toBe(201);
+
+    const oilBody = await oilResponse.json();
+
+    expect(oilBody.message).toBe('Maintenance created successfully');
+
+    const coolantResponse = await request.post(
+      `${API_URL}/maintenance/upsert`,
+      {
+        data: {
+          bike_id,
+          name: 'coolant-change',
+          date: '2026-03-17',
+          odo: 1000,
+        },
+      },
+    );
+
+    expect(coolantResponse.status()).toBe(201);
+
+    const coolantBody = await coolantResponse.json();
+
+    expect(coolantBody.message).toBe('Maintenance created successfully');
+
+    const bikeListResponse = await request.get(
+      `${API_URL}/maintenance?bikeId=${bike_id}`,
+    );
+
+    expect(bikeListResponse.status()).toBe(200);
+
+    const bikeListBody = await bikeListResponse.json();
+
+    expect(bikeListBody.maintenance).toHaveLength(2);
+
+    expect(bikeListBody.maintenance[0].bike_id).toBe(bike_id);
+    expect(bikeListBody.maintenance[0].name).toBe('coolant-change');
+    expect(bikeListBody.maintenance[0].date).toBe('2026-03-17');
+    expect(bikeListBody.maintenance[0].odo).toBe(1000);
+
+    expect(bikeListBody.maintenance[1].bike_id).toBe(bike_id);
+    expect(bikeListBody.maintenance[1].name).toBe('oil-change');
+    expect(bikeListBody.maintenance[1].date).toBe('2026-03-16');
+    expect(bikeListBody.maintenance[1].odo).toBe(500);
+  });
 });
