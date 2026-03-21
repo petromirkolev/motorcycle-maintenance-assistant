@@ -6,47 +6,46 @@ export const validInput = {
 export const invalidEmailInput = {
   invalidEmailEmpty: {
     value: '',
-    testDescription: 'User cannot register with invalid empty email',
+    testDescription: 'Invalid empty email',
   },
   invalidWhitespacedEmail: {
     value: '    ',
-    testDescription: 'User cannot register with invalid whitespaced email',
+    testDescription: 'Invalid whitespaced email',
   },
   invalidEmailWithoutPrefix: {
     value: '@test.com',
-    testDescription: 'User cannot register with invalid email without prefix',
+    testDescription: 'Invalid email without prefix',
   },
   invalidEmailWithoutTLD: {
     value: 'test@test',
-    testDescription: 'User cannot register with invalid email without TLD',
+    testDescription: 'Invalid email without TLD',
   },
   invalidEmailWithoutDomain: {
     value: 'test@com',
-    testDescription: 'User cannot register with invalid email without domain',
+    testDescription: 'Invalid email without domain',
   },
   invalidEmailWithDisallowedChars: {
     value: '##@test.com',
-    testDescription:
-      'User cannot register with invalid email with disallowed chars',
+    testDescription: 'Invalid email with disallowed chars',
   },
 };
 
 export const invalidPasswordInput = {
   invalidPasswordEmpty: {
     value: '',
-    testDescription: 'User cannot register with invalid empty password',
+    testDescription: 'Invalid empty password',
   },
   invalidEmptyWhitespacedPassword: {
     value: '    ',
-    testDescription: 'User cannot register with invalid whitespaced password',
+    testDescription: 'Invalid whitespaced password',
   },
   invalidTooShortPassword: {
     value: '1234',
-    testDescription: 'User cannot register with invalid too short password',
+    testDescription: 'Invalid too short password',
   },
   invalidTooLongPassword: {
     value: '1234554321123455432112345543211234554321',
-    testDescription: 'User cannot register with invalid too long password',
+    testDescription: 'Invalid too long password',
   },
 };
 
