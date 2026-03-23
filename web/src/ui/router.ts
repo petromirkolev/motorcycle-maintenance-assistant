@@ -60,15 +60,14 @@ function bindEvents(): void {
         break;
 
       case 'auth.login': {
-        await resetState();
-        await initState();
-
         try {
           const loginForm = dom.loginForm as HTMLFormElement;
           const input = readLoginForm(loginForm);
           const response = await loginUser(input.email, input.password);
 
           setCurrentUser(response.user);
+          await resetState();
+          await initState();
 
           loginForm?.reset();
           render.errorMessage('Login success, opening garage...', 'auth.login');
