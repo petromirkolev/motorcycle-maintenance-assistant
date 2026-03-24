@@ -2,7 +2,7 @@
 
 MotoCare Maintenance Tracker is a lightweight motorcycle maintenance tracker built as a full-stack QA Automation portfolio project. It helps riders track maintenance schedules, service logs, recent maintenance history, and derived maintenance states such as **On Track**, **Due Soon**, and **Overdue**.
 
-**Live app:** https://motocare-maintenance-tracker-web.onrender.com/
+**Live app:** https://motocaremaintenance.petromirkolev.com/
 
 ## What this project demonstrates
 
