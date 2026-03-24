@@ -1,5 +1,4 @@
 import 'dotenv/config';
-// import './db';
 import app from './app';
 import { initDb } from './init-db';
 
