@@ -44,11 +44,15 @@ export class RegisterPage {
     await this.registerSubmitButton.click();
   }
 
-  async register(email: string, password: string): Promise<void> {
+  async register(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Promise<void> {
     await this.gotoreg();
     await this.fillEmail(email);
     await this.fillPassword(password);
-    await this.fillConfirmPassword(password);
+    await this.fillConfirmPassword(confirmPassword);
     await this.submit();
   }
 

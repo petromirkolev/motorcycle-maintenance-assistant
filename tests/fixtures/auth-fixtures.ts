@@ -13,18 +13,19 @@ export const test = base.extend<AuthFixtures>({
       password: validInput.password,
     };
 
-    await registerPage.register(user.email, user.password);
+    await registerPage.register(user.email, user.password, user.password);
     await expect(loginPage.loginScreen).toBeVisible();
     await use(user);
   },
 
-  loggedInUser: async ({ registerPage, loginPage }, use) => {
+  loggedInUser: async ({ registerPage, loginPage, garagePage }, use) => {
     const user = {
       email: uniqueEmail('login-test'),
       password: validInput.password,
     };
-    await registerPage.register(user.email, user.password);
+    await registerPage.register(user.email, user.password, user.password);
     await loginPage.login(user.email, user.password);
+    await garagePage.expectGarageVisible();
     await use(user);
   },
 });

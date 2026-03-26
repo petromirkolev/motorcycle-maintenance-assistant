@@ -8,7 +8,11 @@ import {
 
 test.describe('Register page test suite', () => {
   test('User can register with valid credentials', async ({ registerPage }) => {
-    await registerPage.register(uniqueEmail(), validInput.password);
+    await registerPage.register(
+      uniqueEmail(),
+      validInput.password,
+      validInput.password,
+    );
     await registerPage.expectSuccess('Registration successful!');
   });
 
@@ -16,7 +20,11 @@ test.describe('Register page test suite', () => {
     registeredUser,
     registerPage,
   }) => {
-    await registerPage.register(registeredUser.email, registeredUser.password);
+    await registerPage.register(
+      registeredUser.email,
+      registeredUser.password,
+      registeredUser.password,
+    );
     await registerPage.expectError('User already exists');
   });
 
@@ -29,34 +37,30 @@ test.describe('Register page test suite', () => {
   });
 
   test('User cannot register without email', async ({ registerPage }) => {
-    await registerPage.register('', validInput.password);
+    await registerPage.register('', validInput.password, validInput.password);
     await registerPage.expectError('Email is required');
   });
 
   test('User cannot register without password', async ({ registerPage }) => {
-    await registerPage.register(uniqueEmail(), '');
+    await registerPage.register(uniqueEmail(), '', '');
     await registerPage.expectError('Password is required');
   });
 
   test('User cannot register without confirm password', async ({
     registerPage,
   }) => {
-    await registerPage.gotoreg();
-    await registerPage.fillEmail(uniqueEmail());
-    await registerPage.fillPassword(validInput.password);
-    await registerPage.fillConfirmPassword('');
-    await registerPage.submit();
+    await registerPage.register(uniqueEmail(), validInput.password, '');
     await registerPage.expectError('Confirm password is required');
   });
 
   test('User cannot register with mismatched passwords', async ({
     registerPage,
   }) => {
-    await registerPage.gotoreg();
-    await registerPage.fillEmail(uniqueEmail());
-    await registerPage.fillPassword(validInput.password);
-    await registerPage.fillConfirmPassword('testingthepass');
-    await registerPage.submit();
+    await registerPage.register(
+      uniqueEmail(),
+      validInput.password,
+      'testingthepass',
+    );
     await registerPage.expectError('Passwords do not match');
   });
 
@@ -73,7 +77,11 @@ test.describe('Register page test suite', () => {
       test(`Register fails with: ${testDescription}`, async ({
         registerPage,
       }) => {
-        await registerPage.register(value, validInput.password);
+        await registerPage.register(
+          value,
+          validInput.password,
+          validInput.password,
+        );
 
         if (value === '    ' || value === '') {
           await registerPage.expectError('Email is required');
@@ -90,7 +98,7 @@ test.describe('Register page test suite', () => {
       test(`Register fails with: ${testDescription}`, async ({
         registerPage,
       }) => {
-        await registerPage.register('invalidpass@test.com', value);
+        await registerPage.register('invalidpass@test.com', value, value);
 
         if (value === '' || value === '    ') {
           await registerPage.expectError('Password is required');
