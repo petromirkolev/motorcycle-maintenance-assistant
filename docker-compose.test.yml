@@ -1,4 +1,10 @@
 services:
+  postgres:
+    environment:
+      POSTGRES_DB: motocare_test
+
   api:
     environment:
-      - DB_PATH=./data/motocaremaintenance.test.sqlite
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/motocare_test
+      PORT: 3001
+      NODE_ENV: test
