@@ -1,16 +1,16 @@
 services:
   postgres:
     image: postgres:16
-    container_name: motocare-postgres
+    container_name: motocare-maintenance-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: motocare_dev
+      POSTGRES_DB: motocare_maintenance_dev
     ports:
       - '5432:5432'
     volumes:
-      - motocare_postgres_data:/var/lib/postgresql/data
+      - motocare_maintenance_postgres_data:/var/lib/postgresql/data
 
   api:
     build: ./api
@@ -33,4 +33,4 @@ services:
       - api
 
 volumes:
-  motocare_postgres_data:
+  motocare_maintenance_postgres_data:
