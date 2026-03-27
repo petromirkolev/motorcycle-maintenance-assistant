@@ -65,29 +65,14 @@ export class MaintenancePage {
     this.backToGarageButton = this.page.getByTestId('btn-back-to-garage');
   }
 
-  async goto(): Promise<void> {
+  async gotoMaintenance(): Promise<void> {
     await this.maintenanceScreenButton.click();
     await expect(this.maintenanceScreen).toBeVisible();
   }
 
-  getTaskCard(taskId: string): Locator {
-    switch (taskId) {
-      case 'oil-change':
-        return this.oilServiceCard;
-      case 'coolant-change':
-        return this.coolantServiceCard;
-      default:
-        throw new Error(`Unknown task id: ${taskId}`);
-    }
-  }
-
-  getTaskField(taskId: string, field: 'last' | 'due'): Locator {
-    return this.getTaskCard(taskId).locator(`[data-field="${field}"]`);
-  }
-
-  async openMaintenanceLogModal(service: string): Promise<void> {
-    await this.goto();
-
+  async openMaintenanceLogModal(
+    service: 'oil-change' | 'coolant-change',
+  ): Promise<void> {
     switch (service) {
       case 'oil-change':
         await this.logOilService.click();
@@ -117,17 +102,19 @@ export class MaintenancePage {
   }
 
   async logMaintenance(
-    taskId: string,
+    service: 'oil-change' | 'coolant-change',
     doneAt: string,
     odo: string,
   ): Promise<void> {
-    await this.openMaintenanceLogModal(taskId);
-    await expect(this.maintenanceLogModal).toBeVisible();
+    await this.gotoMaintenance();
+    await this.openMaintenanceLogModal(service);
     await this.fillMaintenanceLog(doneAt, odo);
     await this.saveMaintenanceLog();
   }
 
   async openMaintenanceScheduleModal(service: string): Promise<void> {
+    await this.gotoMaintenance();
+
     switch (service) {
       case 'oil-change':
         await this.scheduleOilService.click();
@@ -138,6 +125,8 @@ export class MaintenancePage {
       default:
         throw new Error(`Unknown schedule service: ${service}`);
     }
+
+    await expect(this.maintenanceScheduleModal).toBeVisible();
   }
 
   async fillMaintenanceSchedule(days: string, km: string): Promise<void> {
@@ -159,9 +148,23 @@ export class MaintenancePage {
     km: string,
   ): Promise<void> {
     await this.openMaintenanceScheduleModal(taskId);
-    await expect(this.maintenanceScheduleModal).toBeVisible();
     await this.fillMaintenanceSchedule(days, km);
     await this.saveMaintenanceSchedule();
+  }
+
+  getTaskCard(taskId: string): Locator {
+    switch (taskId) {
+      case 'oil-change':
+        return this.oilServiceCard;
+      case 'coolant-change':
+        return this.coolantServiceCard;
+      default:
+        throw new Error(`Unknown task id: ${taskId}`);
+    }
+  }
+
+  getTaskField(taskId: string, field: 'last' | 'due'): Locator {
+    return this.getTaskCard(taskId).locator(`[data-field="${field}"]`);
   }
 
   async expectTaskFieldContains(
