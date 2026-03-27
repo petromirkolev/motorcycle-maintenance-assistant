@@ -12,12 +12,12 @@ test.describe('Maintenance logs', () => {
   test('Maintenance log with valid date and odometer saves and shows in UI', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.logMaintenance(
       'oil-change',
-      maintenanceInput.doneAt,
-      maintenanceInput.odo,
+      logInput.doneAt,
+      logInput.odo,
     );
     await maintenancePage.expectTaskFieldContains(
       'oil-change',
@@ -29,15 +29,12 @@ test.describe('Maintenance logs', () => {
   test('Canceling maintenance log does not change UI', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.gotoMaintenance();
     await maintenancePage.openMaintenanceLogModal('oil-change');
 
-    await maintenancePage.fillMaintenanceLog(
-      maintenanceInput.doneAt,
-      maintenanceInput.odo,
-    );
+    await maintenancePage.fillMaintenanceLog(logInput.doneAt, logInput.odo);
 
     await maintenancePage.cancelMaintenanceLog();
 
@@ -51,11 +48,11 @@ test.describe('Maintenance logs', () => {
   test('Maintenance log negative odo is rejected', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.logMaintenance(
       'coolant-change',
-      maintenanceInput.doneAt,
+      logInput.doneAt,
       '-100',
     );
 
@@ -65,12 +62,12 @@ test.describe('Maintenance logs', () => {
   test('Page reload preserves maintenance logs', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.logMaintenance(
       'oil-change',
-      maintenanceInput.doneAt,
-      maintenanceInput.odo,
+      logInput.doneAt,
+      logInput.odo,
     );
     await maintenancePage.expectTaskFieldContains(
       'oil-change',
@@ -91,12 +88,12 @@ test.describe('Maintenance logs', () => {
   test('Newer maintenance log replaces current maintenance log', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.logMaintenance(
       'oil-change',
-      maintenanceInput.doneAt,
-      maintenanceInput.odo,
+      logInput.doneAt,
+      logInput.odo,
     );
     await maintenancePage.expectTaskFieldContains(
       'oil-change',
@@ -117,12 +114,12 @@ test.describe('Maintenance logs', () => {
   test('Logging one maintenance item does not affect another maintenance item', async ({
     garageWithOneBike,
     maintenancePage,
-    maintenanceInput,
+    logInput,
   }) => {
     await maintenancePage.logMaintenance(
       'oil-change',
-      maintenanceInput.doneAt,
-      maintenanceInput.odo,
+      logInput.doneAt,
+      logInput.odo,
     );
 
     await maintenancePage.expectTaskFieldContains(
@@ -151,15 +148,13 @@ test.describe('Maintenance logs', () => {
     garageWithOneBike,
     garagePage,
     maintenancePage,
-    maintenanceInput,
+    logInput,
     bikeInput,
   }) => {
     await garagePage.addBike(bikeInput);
     await garagePage.expectBikeVisible(bikeInput.make);
 
-    const bikeCard = garagePage.page.locator('.bikeCard__main').filter({
-      hasText: bikeInput.make,
-    });
+    const bikeCard = maintenancePage.getBikeCard(bikeInput.make);
 
     await bikeCard.click();
 
@@ -175,9 +170,7 @@ test.describe('Maintenance logs', () => {
 
     await maintenancePage.page.reload();
 
-    const bike2Card = garagePage.page.locator('.bikeCard__main').filter({
-      hasText: garageWithOneBike.make,
-    });
+    const bike2Card = maintenancePage.getBikeCard(garageWithOneBike.make);
 
     await bike2Card.click();
 
