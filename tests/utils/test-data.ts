@@ -1,8 +1,12 @@
-import { Bike } from '../types/bike';
-
 export const validInput = {
-  email: 'example@test.com',
   password: 'testingpass',
+};
+
+export const invalidInput = {
+  email: 'invalidemail@',
+  password: 'testingpass123',
+  shortPassword: 'test',
+  longPassword: 'test'.repeat(50),
 };
 
 export const invalidEmailInput = {
