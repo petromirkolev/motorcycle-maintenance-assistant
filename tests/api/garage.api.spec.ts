@@ -89,7 +89,6 @@ test.describe('Garage API test suite', () => {
     expect(updateBody.message).toBe(BIKE_UPDATE_SUCCESS);
 
     const bike = await api.listFirstBike(request, userWithOneBike.user_id);
-
     expect(bike.make).toBe(validBikeUpdateInput.make);
     expect(bike.model).toBe(validBikeUpdateInput.model);
     expect(bike.year).toBe(validBikeUpdateInput.year);

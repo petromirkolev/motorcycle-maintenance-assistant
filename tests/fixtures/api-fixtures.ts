@@ -8,6 +8,10 @@ import {
 import { api } from '../utils/api-helpers';
 import { ValidBikeInput } from '../types/bike';
 import { InvalidUserInput, ValidUserInput } from '../types/auth';
+import {
+  MaintenanceLogInput,
+  MaintenanceScheduleInput,
+} from '../types/maintenance';
 
 type InvalidBikeInput = {
   yearBelow: number;
@@ -29,6 +33,8 @@ type ApiFixtures = {
   validBikeInput: ValidBikeInput;
   validBikeUpdateInput: ValidBikeInput;
   invalidBikeInput: InvalidBikeInput;
+  maintenanceLogInput: MaintenanceLogInput;
+  maintenanceScheduleInput: MaintenanceScheduleInput;
   registeredUser: ValidUserInput;
   loggedInUser: LoggedInUser;
   userWithOneBike: UserWithOneBike;
@@ -36,42 +42,40 @@ type ApiFixtures = {
 
 export const test = base.extend<ApiFixtures>({
   validUserInput: async ({}, use) => {
-    const email = uniqueEmail();
-    const password = validInput.password;
-
-    await use({ email, password });
+    await use({ email: uniqueEmail(), password: validInput.password });
   },
 
   invalidUserInput: async ({}, use) => {
-    const email = invalidInput.email;
-    const password = invalidInput.password;
-    const shortPassword = invalidInput.shortPassword;
-    const longPassword = invalidInput.longPassword;
-
-    await use({ email, password, shortPassword, longPassword });
+    await use({
+      email: invalidInput.email,
+      password: invalidInput.password,
+      shortPassword: invalidInput.shortPassword,
+      longPassword: invalidInput.longPassword,
+    });
   },
 
   validBikeInput: async ({}, use) => {
-    const { make, model, year, odo } = makeBike();
-
-    await use({ make, model, year, odo });
+    await use({ ...makeBike() });
   },
 
   validBikeUpdateInput: async ({}, use) => {
-    const make = 'Honda';
-    const model = 'Rebel';
-    const odo = 1000;
-    const year = 2010;
-
-    await use({ make, model, odo, year });
+    await use({ make: 'Honda', model: 'Rebel', odo: 1000, year: 2010 });
   },
 
   invalidBikeInput: async ({}, use) => {
-    const yearBelow = 1899;
-    const yearAbove = 2101;
-    const odo = -100;
+    await use({ yearBelow: 1899, yearAbove: 2101, odo: -100 });
+  },
 
-    await use({ yearBelow, yearAbove, odo });
+  maintenanceLogInput: async ({}, use) => {
+    await use({
+      name: 'oil-change',
+      date: '2026-04-02',
+      odo: 12000,
+    });
+  },
+
+  maintenanceScheduleInput: async ({}, use) => {
+    await use({ name: 'oil-change', interval_days: 100, interval_km: 1000 });
   },
 
   registeredUser: async ({ request, validUserInput }, use) => {
@@ -83,9 +87,8 @@ export const test = base.extend<ApiFixtures>({
   loggedInUser: async ({ request, registeredUser }, use) => {
     const response = await api.loginUser(request, { ...registeredUser });
     const body = await response.json();
-    const user_id = body.user.id;
 
-    await use({ ...registeredUser, user_id });
+    await use({ ...registeredUser, user_id: body.user.id });
   },
 
   userWithOneBike: async ({ request, loggedInUser, validBikeInput }, use) => {
@@ -93,9 +96,8 @@ export const test = base.extend<ApiFixtures>({
       ...validBikeInput,
     });
     const body = await response.json();
-    const bike_id = body.bike.id;
 
-    await use({ ...loggedInUser, bike_id });
+    await use({ ...loggedInUser, bike_id: body.bike.id });
   },
 });
 

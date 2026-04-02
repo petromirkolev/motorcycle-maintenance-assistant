@@ -17,3 +17,11 @@ export const BIKE_DELETE_SUCCESS = 'Bike deleted successfully';
 export const INVALID_YEAR = 'Year must be an integer between 1900 and 2100';
 export const ODO_ERROR = 'Odometer must be a non-negative integer';
 export const ODO_CANNOT_DECREASE = 'Odometer cannot decrease';
+
+// Maintenance
+export const MAINTENANCE_CREATE_SUCCESS = 'Maintenance created successfully';
+export const MAINTENANCE_SCHEDULE_SUCCESS =
+  'Maintenance scheduled successfully';
+export const ODO_NEGATIVE_ERROR = 'odo must be a non-negative integer';
+export const INTERVAL_DAYS_REQUIRED = 'interval_days is required';
+export const INTERVAL_KM_REQUIRED = 'interval_km is required';

@@ -1,17 +1,17 @@
 import { APIRequestContext, APIResponse, expect } from '@playwright/test';
-import { Bike, BikeResponse } from '../types/bike';
-import { ValidInput } from '../types/auth';
+import { ValidBikeInput, BikeResponse } from '../types/bike';
+import { ValidUserInput } from '../types/auth';
 import { API_URL } from './constants';
 import {
-  BikeUpdate,
-  MaintenanceLog,
-  MaintenanceSchedule,
+  BikeUpdateInput,
+  MaintenanceLogInput,
+  MaintenanceScheduleInput,
 } from '../types/maintenance';
 
 export const api = {
   async registerUser(
     request: APIRequestContext,
-    input: ValidInput,
+    input: ValidUserInput,
   ): Promise<APIResponse> {
     const response = await request.post(`${API_URL}/auth/register`, {
       data: {
@@ -25,7 +25,7 @@ export const api = {
 
   async loginUser(
     request: APIRequestContext,
-    input: ValidInput,
+    input: ValidUserInput,
   ): Promise<APIResponse> {
     const response = await request.post(`${API_URL}/auth/login`, {
       data: {
@@ -40,7 +40,7 @@ export const api = {
   async createBike(
     request: APIRequestContext,
     user_id: string,
-    overrides: Partial<Bike> = {},
+    overrides: Partial<ValidBikeInput> = {},
   ): Promise<APIResponse> {
     const response = await request.post(`${API_URL}/bikes`, {
       data: {
@@ -56,7 +56,7 @@ export const api = {
     request: APIRequestContext,
     user_id: string,
     bike_id: string,
-    overrides: Partial<BikeUpdate>,
+    overrides: Partial<BikeUpdateInput>,
   ): Promise<APIResponse> {
     const updateResponse = await request.put(`${API_URL}/bikes/${bike_id}`, {
       data: {
@@ -95,7 +95,7 @@ export const api = {
   async logMaintenance(
     request: APIRequestContext,
     bike_id: string,
-    overrides: Partial<MaintenanceLog>,
+    overrides: Partial<MaintenanceLogInput>,
   ) {
     const response = await request.post(`${API_URL}/maintenance/log`, {
       data: {
@@ -110,7 +110,7 @@ export const api = {
   async scheduleMaintenance(
     request: APIRequestContext,
     bike_id: string,
-    overrides: Partial<MaintenanceSchedule>,
+    overrides: Partial<MaintenanceScheduleInput>,
   ) {
     const response = await request.post(`${API_URL}/maintenance/schedule`, {
       data: {

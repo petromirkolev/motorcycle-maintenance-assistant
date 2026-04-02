@@ -45,7 +45,6 @@ test.describe('Auth API test suite', () => {
       ...validUserInput,
       email: invalidUserInput.email,
     });
-
     expect(response.status()).toBe(400);
 
     const body = await response.json();
@@ -115,7 +114,6 @@ test.describe('Auth API test suite', () => {
     registeredUser,
   }) => {
     const loginResponse = await api.loginUser(request, { ...registeredUser });
-
     expect(loginResponse.status()).toBe(200);
 
     const loginBody = await loginResponse.json();
