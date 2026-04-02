@@ -1,3 +1,5 @@
+[![Playwright Tests](https://github.com/petromirkolev/MotoCare-Maintenance-Tracker/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/MotoCare-Maintenance-Tracker/actions/workflows/playwright.yml)
+
 # MotoCare Maintenance Tracker
 
 MotoCare Maintenance Tracker is a lightweight motorcycle maintenance tracker built as a full-stack QA Automation portfolio project. It helps riders track maintenance schedules, service logs, recent maintenance history, and derived maintenance states such as **On Track**, **Due Soon**, and **Overdue**.
@@ -175,7 +177,7 @@ The project includes both Playwright E2E tests and Playwright API tests.
 - bike isolation
 - maintenance item isolation
 
-At the time of writing, the suite contains 114 Playwright tests.
+At the time of writing, the suite contains 116 Playwright tests.
 
 ## How tests are run
 
