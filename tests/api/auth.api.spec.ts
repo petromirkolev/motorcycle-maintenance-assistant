@@ -1,4 +1,3 @@
-import { LOGIN_SUCCESS_MESSAGE } from '../../api/src/constants/auth';
 import { test, expect } from '../fixtures/api-fixtures';
 import { api } from '../utils/api-helpers';
 import {
@@ -11,7 +10,6 @@ import {
   USER_EXIST,
   USER_REGISTER_SUCCESS,
 } from '../utils/constants';
-import { invalidInput } from '../utils/test-data';
 
 test.describe('Auth API test suite', () => {
   test('Register with valid credentials succeeds', async ({
@@ -41,6 +39,7 @@ test.describe('Auth API test suite', () => {
   test('Register with invalid email is rejected', async ({
     request,
     validInput,
+    invalidInput,
   }) => {
     const response = await api.registerUser(request, {
       ...validInput,
@@ -84,6 +83,7 @@ test.describe('Auth API test suite', () => {
   test('Register with short password is rejected', async ({
     request,
     validInput,
+    invalidInput,
   }) => {
     const response = await api.registerUser(request, {
       ...validInput,
@@ -98,6 +98,7 @@ test.describe('Auth API test suite', () => {
   test('Register with long password is rejected', async ({
     request,
     validInput,
+    invalidInput,
   }) => {
     const response = await api.registerUser(request, {
       ...validInput,
@@ -124,6 +125,7 @@ test.describe('Auth API test suite', () => {
   test('Login with wrong password is rejected', async ({
     request,
     registeredUser,
+    invalidInput,
   }) => {
     const loginResponse = await api.loginUser(request, {
       ...registeredUser,
@@ -138,6 +140,7 @@ test.describe('Auth API test suite', () => {
   test('Login with non existing email is rejected', async ({
     request,
     registeredUser,
+    invalidInput,
   }) => {
     const loginResponse = await api.loginUser(request, {
       ...registeredUser,
