@@ -1,10 +1,10 @@
+// API
 export const API_URL = 'http://127.0.0.1:3001';
+export const INTERNAL_SERVER_ERROR = ' Internal Server Error';
 
 // Auth
-export const USER_REGISTER_SUCCESS = 'User registered successfully';
-export const REGISTER_SUCCESS_UI = 'Registration successful!';
-export const LOGIN_SUCCESS = 'Login successful';
-export const LOGIN_SUCCESS_UI = 'Login success, opening garage...';
+export const USER_REGISTER_SUCCESS = 'Registration successful';
+export const USER_LOGIN_SUCCESS = 'Login successful';
 export const USER_EXIST = 'User already exists';
 export const INVALID_EMAIL = 'Invalid email format';
 export const EMAIL_PASS_REQUIRED = 'Email and password are required';

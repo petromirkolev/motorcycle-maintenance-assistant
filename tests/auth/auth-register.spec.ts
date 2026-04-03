@@ -7,9 +7,9 @@ import {
   PASS_NOT_MATCH,
   PASS_REQUIRED,
   PASS_SHORT,
-  REGISTER_SUCCESS_UI,
+  USER_REGISTER_SUCCESS,
   USER_EXIST,
-} from '../utils/constants';
+} from '../../constants/constants';
 import { invalidEmailInput, invalidPasswordInput } from '../utils/test-data';
 
 test.describe('Register page test suite', () => {
@@ -18,7 +18,7 @@ test.describe('Register page test suite', () => {
     validUserInput,
   }) => {
     await registerPage.register(validUserInput);
-    await registerPage.expectSuccess(REGISTER_SUCCESS_UI);
+    await registerPage.expectSuccess(USER_REGISTER_SUCCESS);
   });
 
   test('User cannot register with existing credentials', async ({

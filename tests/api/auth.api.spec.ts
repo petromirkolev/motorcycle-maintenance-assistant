@@ -4,12 +4,12 @@ import {
   EMAIL_PASS_REQUIRED,
   INVALID_CREDENTIALS,
   INVALID_EMAIL,
-  LOGIN_SUCCESS,
+  USER_LOGIN_SUCCESS,
   PASS_LONG,
   PASS_SHORT,
   USER_EXIST,
   USER_REGISTER_SUCCESS,
-} from '../utils/constants';
+} from '../../constants/constants';
 
 test.describe('Auth API test suite', () => {
   test('Register with valid credentials succeeds', async ({
@@ -117,7 +117,7 @@ test.describe('Auth API test suite', () => {
     expect(loginResponse.status()).toBe(200);
 
     const loginBody = await loginResponse.json();
-    expect(loginBody.message).toBe(LOGIN_SUCCESS);
+    expect(loginBody.message).toBe(USER_LOGIN_SUCCESS);
   });
 
   test('Login with wrong password is rejected', async ({
